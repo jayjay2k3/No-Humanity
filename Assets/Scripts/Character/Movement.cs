@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,7 +11,6 @@ public class Movement : MonoBehaviour
     public float speed;
     private Touch current_touch;
     Vector3 startPos;
-    float sinTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,21 +31,13 @@ public class Movement : MonoBehaviour
 
                 case TouchPhase.Moved:
                     Vector3 new_pos=Camera.main.ScreenToWorldPoint(current_touch.position)- startPos;
-                    sinTime+=Time.deltaTime*speed;
-                    sinTime=Mathf.Clamp(sinTime,0,Mathf.PI);
-                    float t= Evaluate(sinTime);
-                    transform.position= Vector3.Lerp(startPos,new Vector3(new_pos.x,new_pos.y,0),t);
+                    transform.position= new Vector3(new_pos.x,new_pos.y,0);
                     
                     break;
                 
                 
             }
         }
-    }
-   
-    float Evaluate(float x)
-    {
-        return 0.5f*Mathf.Sin(x-Mathf.PI/2f) +0.5f;
     }
 
 }

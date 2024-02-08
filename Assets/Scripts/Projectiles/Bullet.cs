@@ -10,11 +10,6 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if(other.tag=="Player")
-        {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-        }
         else if(other.tag=="Laser")
         {
             Destroy(gameObject);

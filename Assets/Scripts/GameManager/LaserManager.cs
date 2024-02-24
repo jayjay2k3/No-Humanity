@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LaserManager : MonoBehaviour
+public class LaserManager : GameManagerr
 {
     public GameObject laser;
     public int laser_each_round;
-    public float spawn_time, realtime;
+    public float spawning_time;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,11 +15,10 @@ public class LaserManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+     public void Update()
     {
-        realtime+=1*Time.deltaTime;
-
-        if(realtime>=spawn_time)
+        realtime+=Time.deltaTime*1f;
+        if(realtime>=spawning_time)
         {
             realtime=0;
             spawn_laser();

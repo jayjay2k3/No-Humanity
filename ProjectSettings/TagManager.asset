@@ -7,6 +7,7 @@ TagManager:
   - Projectiles
   - Wall
   - Laser
+  - Meteorite
   layers:
   - Default
   - TransparentFX

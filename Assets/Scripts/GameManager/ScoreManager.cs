@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI score;
@@ -19,9 +20,15 @@ public class ScoreManager : MonoBehaviour
     public BulletManager bulletManager;
 
     public GameObject character;
+
+    
     void Awake() 
     {
-        update_high_score();
+        if(SceneManager.GetActiveScene().name=="GameScene")
+        {
+            update_high_score();
+        }
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -32,7 +39,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!stop)
+        if(!stop && SceneManager.GetActiveScene().name=="GameScene")
         {
             time+=1f*Time.deltaTime;
             score.text=time.ToString("0.00");
@@ -68,10 +75,17 @@ public class ScoreManager : MonoBehaviour
     public void retry()
     {
         Bullet[] bullets;
-        Laser[]  lasers;
+        GameObject[]  lasers;
+        GameManagerr[] gameSystems;
         bullets=FindObjectsOfType<Bullet>();
-        lasers=FindObjectsOfType<Laser>();
+        lasers=GameObject.FindGameObjectsWithTag("Laser");
+       
+        gameSystems=FindObjectsOfType<GameManagerr>();
 
+        foreach(var child in gameSystems)
+        {
+            child.realtime=0;
+        }
         foreach( var child in bullets)
         {
             Destroy(child.gameObject);
@@ -81,6 +95,8 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+       
        
         time=0;
         score.text=time.ToString("0.00");
@@ -94,5 +110,16 @@ public class ScoreManager : MonoBehaviour
         stop=false;
         update_high_score();
     }
-    
+
+    public void ToMenu()
+    {
+        retry();
+        SceneManager.LoadScene("StartMenu");
+    }
+    public void Play()
+    {
+        SceneManager.LoadScene("GameScene");
+        
+        
+    }
 }

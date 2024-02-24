@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletManager : MonoBehaviour
+public class BulletManager : GameManagerr
 {
     public GameObject bullet;
     GameObject shot_bullet;
@@ -10,7 +10,7 @@ public class BulletManager : MonoBehaviour
     public GameObject[] spawning_spots_right;
     public GameObject[] spawning_spots_up;
     public GameObject[] spawning_spots_down;
-    public float spawning_time,realtime=0;
+    public float spawning_time;
 
     public float bullet_speed;
 
@@ -21,10 +21,9 @@ public class BulletManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+     public void Update()
     {
         realtime+=Time.deltaTime*1f;
-
         if(realtime>=spawning_time)
         {
             realtime=0;
